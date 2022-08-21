@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Student(models.Model):
+class Student(models.Model):#声明一个继承至Model的具体类Student
     # 模型字段
     name = models.CharField(max_length=100, verbose_name='姓名')
     sex = models.BooleanField(default=1, verbose_name='性别')
