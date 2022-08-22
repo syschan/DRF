@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('drf/', include('students.urls')),
     path('ser/', include('ser.urls')), #追加ser应用的子路由urls.py到总路由
+    path('req/', include('req.urls')), #追加req应用的子路由urls.py到总路由
 ]
