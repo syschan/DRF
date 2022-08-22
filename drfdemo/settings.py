@@ -88,11 +88,17 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'drf_db',  # 数据库名称
         'USER': 'root',  # 用户名
-        'PASSWORD': 'ckz123456@@',  # 密码
+        'PASSWORD': '123456',  # 密码
         'HOST': '127.0.0.1',  # 数据库主机
         'PORT': 3306,  # 数据库端口
     }
 }
+# mysql登录：
+#  mysql -uroot -p
+# mysql密码修改：
+# mysql> use mysql; 
+# mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'yourpwd'; 
+# mysql> flush privileges; 
 
 
 # Password validation

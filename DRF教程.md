@@ -2008,3 +2008,4 @@ urlpatterns = [
 3 ModelViewSet通过多继承一次性封装了GenericViewSet和5个XModeMixin，路由也需要在as_view()方法中定义请求方法和XModeMixin中的X()方法的对应关系
 4 当前的不足是如果多个ModelViewSet生成路由时，除了路径是变量其它均是重复，需要需要进一步封装；注册router组件为采用ModelViewSet后自动注册提供了解决方案
 
+
