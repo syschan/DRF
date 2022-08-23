@@ -21,4 +21,5 @@ urlpatterns = [
     path('drf/', include('students.urls')),
     path('ser/', include('ser.urls')), #追加ser应用的子路由urls.py到总路由
     path('req/', include('req.urls')), #追加req应用的子路由urls.py到总路由
+    path('set/', include('set.urls')), #追加set应用的子路由urls.py到总路由
 ]

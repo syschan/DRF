@@ -1247,7 +1247,7 @@ response.body=>
 }
 ========
 
-4. Django-DRF(视图相关)
+五 Django-DRF(视图相关)
 drf除了在数据序列化部分简写代码以外，还在视图中提供了简写操作。所以在django原有的django.views.View类基础上，drf封装了多个子类出来提供给我们使用。
 
 Django REST framwork 提供的视图的主要作用：
@@ -1256,8 +1256,8 @@ Django REST framwork 提供的视图的主要作用：
 控制数据库查询的执行
 调用请求类和响应类（这两个类也是由drf帮我们再次扩展了一些功能类）。
 
-4.1 请求与响应
-4.1.1 Request
+1 请求与响应
+1.1 Request
 REST framework 传入视图的request对象不再是Django默认的HttpRequest对象，而是REST framework提供的扩展了HttpRequest类的Request类的对象。
 
 　　REST framework 提供了Parser解析器，在接收到请求后会自动根据Content-Type指明的请求数据类型（如JSON、表单等）将请求数据进行parse解析，解析为类字典[QueryDict]对象保存到Request对象中。
@@ -1279,7 +1279,7 @@ REST framework 传入视图的request对象不再是Django默认的HttpRequest�
 
 　　request.query_params与Django标准的 request.GET 相同，只是更换了更正确的名称而已。
 
-4.1.2 Response
+1.2 Response
 =====
 from rest_framework.response import Response
 =====
@@ -1319,14 +1319,14 @@ content_type: 响应数据的Content-Type，通常此参数无需传递，REST f
 
 　　3. content：经过render处理后的响应数
 
-4.1.3 状态码
+1.3 状态码
 为了方便设置状态码， REST Framework在rest_framework.status模块中提供了常用状态码常量。
 
-4.1.3.1 信息告知---1XX
+1.3.1 信息告知---1XX
 HTTP_100_CONTINUE
 HTTP_101_SWITCHING_PROTOCOLS
 
-4.1.3.2 成功---2XX
+1.3.2 成功---2XX
 HTTP_200_OK
 HTTP_201_CREATED
 HTTP_202_ACCEPTED
@@ -1336,7 +1336,7 @@ HTTP_205_RESET_CONTENT
 HTTP_206_PARTIAL_CONTENT
 HTTP_207_MULTI_STATUS
 
-4.1.3.3 重定向---3XX
+1.3.3 重定向---3XX
 HTTP_300_MULTIPLE_CHOICES
 HTTP_301_MOVED_PERMANENTLY
 HTTP_302_FOUND
@@ -1346,7 +1346,7 @@ HTTP_305_USE_PROXY
 HTTP_306_RESERVED
 HTTP_307_TEMPORARY_REDIRECT
 
-4.1.3.4 客户端错误---4XX
+1.3.4 客户端错误---4XX
 HTTP_400_BAD_REQUEST
 HTTP_401_UNAUTHORIZED
 HTTP_402_PAYMENT_REQUIRED
@@ -1373,7 +1373,7 @@ HTTP_429_TOO_MANY_REQUESTS
 HTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE
 HTTP_451_UNAVAILABLE_FOR_LEGAL_REASONS
 
-4.1.3.5 服务器错误---5XX
+1.3.5 服务器错误---5XX
 HTTP_500_INTERNAL_SERVER_ERROR
 HTTP_501_NOT_IMPLEMENTED
 HTTP_502_BAD_GATEWAY
@@ -1383,7 +1383,7 @@ HTTP_505_HTTP_VERSION_NOT_SUPPORTED
 HTTP_507_INSUFFICIENT_STORAGE
 HTTP_511_NETWORK_AUTHENTICATION_REQUIRED
 
-4.2视图
+2视图
 　　REST framework 提供了众多的通用视图基类与扩展类，以简化视图的编写。
 
 　　Django REST framwork 提供的视图的主要作用：
@@ -1392,7 +1392,7 @@ HTTP_511_NETWORK_AUTHENTICATION_REQUIRED
 控制数据库查询的执行
 　　下面我们介绍一下两个视图基类
 
-4.2.1 APIView
+2.1 APIView
 =====
 from rest_framework.views import APIView
 =====
@@ -1411,7 +1411,7 @@ permissoin_classes 列表或元祖，权限检查类
 throttle_classes 列表或元祖，流量控制类
 　　在APIView中仍以常规的类视图定义方法来实现get() 、post() 或者其他请求方式的方法。
 
-4.2.2 GenericAPIView（通用视图类）
+2.2 GenericAPIView（通用视图类）
 =====
 from rest_framework.generics import GenericAPIView
 =====
@@ -1469,14 +1469,14 @@ filter_backends 指明过滤控制后端
 
 　　简单介绍了一下，下面我们就通过代码来感受一下。
 
-4.2.3 View与APIView-----示例1
-4.2.3.1 创建一个新的子应用req
+2.3 View与APIView-----示例1
+2.3.1 创建一个新的子应用req
 =====
 python manage.py startapp req
 =====
 
 ...DRF\drfdemo>python manage.py startapp req
-4.2.3.2 在settings.py的INSTALLED_APPS中添加'req'
+2.3.2 在settings.py的INSTALLED_APPS中添加'req'
 =========
 INSTALLED_APPS = [
     ...
@@ -1487,9 +1487,9 @@ INSTALLED_APPS = [
     ...
 ]
 =========
-4.2.3.3 模型类
+2.3.3 模型类
 继续使用students应用中的模型student，暂不新建模型
-4.2.3.4 创建序列化器
+2.3.4 创建序列化器
 在...DRF\drfdemo\req\应用目录中新建serializers.py用于保存该应用的序列化器。
 在serializers.py中创建一个StudentModelSerializer用于序列化与反序列化。
 =====
@@ -1520,7 +1520,7 @@ class StudentModelSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("alex已经22岁了……")
         return attrs
 =====
-4.2.3.5 创建视图类
+2.3.5 创建视图类
 在...DRF\drfdemo\req应用下的views.py文件中：
 =====
 """ 测试代码：区分Django的View和DRF的APIView """
@@ -1556,7 +1556,7 @@ class Student2APIView(APIView):
 
         return Response(data=data_dic,status=status.HTTP_204_NO_CONTENT,headers={'self':'TomK'})
 =====
-4.2.3.6 创建子路由
+2.3.6 创建子路由
 ...DRF\drfdemo\req下新建urls.py文件，调用视图类的as_view()方法：
 =====
 from django.urls import path, re_path
@@ -1570,7 +1570,7 @@ urlpatterns =[
 ]
 
 =====
-4.2.3.7 将子路由追加到总路由
+2.3.7 将子路由追加到总路由
 =====
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -1579,7 +1579,7 @@ urlpatterns = [
     path('req/', include('req.urls')), #追加req应用的子路由urls.py到总路由
 ]
 =====
-4.2.3.8 发送get请求
+2.3.8 发送get请求
 ----View实现----
 查(postman)：
 get=>http://localhost:8000/req/student1/?username=admin&pwd=110
@@ -1612,10 +1612,10 @@ response.body=>
 }
 ========
 
-4.2.4 使用APIView完成增删改查---示例2
-4.2.4.1 借用已创建的模型对象Student
-4.2.4.2 借用已创建的序列化器类StudentModelSerializer
-4.2.4.3 创建视图类
+2.4 使用APIView完成增删改查---示例2
+2.4.1 借用已创建的模型对象Student
+2.4.2 借用已创建的序列化器类StudentModelSerializer
+2.4.3 创建视图类
 在...DRF\drfdemo\req应用下的views.py文件中：
 =====
 """
@@ -1685,7 +1685,7 @@ class Student4APIView(APIView):
         Student.objects.get(pk=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 =====
-4.2.4.4 更新子路由
+2.4.4 更新子路由
 ...DRF\drfdemo\req下更新urls.py文件，调用视图类的as_view()方法：
 =====
 from django.urls import path, re_path
@@ -1701,8 +1701,8 @@ urlpatterns = [
     re_path(r'^student4/(?P<pk>\d+)/$',views.Student4APIView.as_view()),
 ]
 =====
-4.2.4.5 已在一个接口中将子路追加到总路由，无需再追加
-4.2.4.6 对student3发送get、post请求
+2.4.5 已在一个接口中将子路追加到总路由，无需再追加
+2.4.6 对student3发送get、post请求
 查(postman)：
 get=>http://localhost:8000/req/student3/
 ……略
@@ -1725,7 +1725,7 @@ response.body=>
     "sex": true
 }
 ========
-4.2.4.7 对student4发送get、put和delete请求
+2.4.7 对student4发送get、put和delete请求
 查(postman)：
 get=>http://localhost:8000/req/student4/3/
 返回(postman)：
@@ -1771,7 +1771,7 @@ response.body=>
 2 APIView引入了序列化器，可以在序列化器中定义序列化和反序列化规则，确保前端到后端，后端到前端的中间环节具有标准化的、统一的解决方案。
 3 APIView重写了as_view()方法，不再是简单的返回一个view函数，而是经过一系列处理再返回view函数。
 
-4.2.5 GenericAPIView完成增删改查---示例3
+2.5 GenericAPIView完成增删改查---示例3
 略
 (方法和过程同示例2，只是用GenericAPIView的方式实现了增删改查，serializer.py/总路由urls.py和settings.py都不需要改动，相应改动的代码见views.py/子路由urls.py。)
 
@@ -1779,10 +1779,10 @@ response.body=>
 1 把不同的请求方法中用到的模型对象查询集和序列化器类抽离出来，作为GenericAPIView的属性，不同的模型对象和序列化器类只需要改共同的属性即可，不用再到具体每个请求方法中去改模型对象查询集合序列化器类。
 2 不同的请求方法逻辑结构不同，同一种请求方法逻辑结构基本相同，可以针对不同的请求方法封装成相应的同一类方法，这是XModeMixin的使命。
 
-4.2.6 五个视图扩展类---示例4
-4.2.6.1 借用已创建的模型对象Student
-4.2.6.2 借用已创建的序列化器类StudentModelSerializer
-4.2.6.3 创建视图类
+2.6 五个视图扩展类---示例4
+2.6.1 借用已创建的模型对象Student
+2.6.2 借用已创建的序列化器类StudentModelSerializer
+2.6.3 创建视图类
 在...DRF\drfdemo\req应用下的views.py文件中：
 =====
 """
@@ -1821,7 +1821,7 @@ class Student8GenericAPIView(GenericAPIView,RetrieveModelMixin,UpdateModelMixin,
     def delete(self,request,pk):
         return self.destroy(request,pk)
 =====
-4.2.6.4 更新子路由
+2.6.4 更新子路由
 ...DRF\drfdemo\req下更新urls.py文件，调用视图类的as_view()方法：
 =====
 from django.urls import path, re_path
@@ -1837,8 +1837,8 @@ urlpatterns = [
     re_path(r'^student8/(?P<pk>\d+)/$',views.Student8GenericAPIView.as_view()),
 ]
 =====
-4.2.6.5 已在一个接口中将子路追加到总路由，无需再追加
-4.2.6.6 对student7发送get和post，对student8发送get、put和delete请求
+2.6.5 已在一个接口中将子路追加到总路由，无需再追加
+2.6.6 对student7发送get和post，对student8发送get、put和delete请求
 略(本示例实现了中对两个接口发"增删改查查"5个接口，发起请求和响应与之前postman中的操作类似，以下如无必要，将不在单独展示发起请求和响应的内容，仅展示操作步骤以示提醒。)
 
 小结：GenericAPIView=>GenericAPIView+N*XModeMixin
@@ -1852,10 +1852,10 @@ def post(self,request):
     return self.create(request)
 完全相同，还需要进一步封装。这是XAPIView的任务。
 
-4.2.7 内置的扩展子类----示例5
-4.2.7.1 借用已创建的模型对象Student
-4.2.7.2 借用已创建的序列化器类StudentModelSerializer
-4.2.7.3 创建视图类
+2.7 内置的扩展子类----示例5
+2.7.1 借用已创建的模型对象Student
+2.7.2 借用已创建的序列化器类StudentModelSerializer
+2.7.3 创建视图类
 在...DRF\drfdemo\req应用下的views.py文件中：
 =====
 """
@@ -1911,7 +1911,7 @@ class Student10GenericAPIView(RetrieveAPIView,UpdateAPIView,DestroyAPIView):
     serializer_class = StudentModelSerializer
 =====
 
-4.2.7.4 更新子路由
+2.7.4 更新子路由
 ...DRF\drfdemo\req下更新urls.py文件，调用视图类的as_view()方法：
 =====
 # 更新子路由，关联路径和视图
@@ -1923,8 +1923,8 @@ urlpatterns = [
     re_path(r'^student10/(?P<pk>\d+)/$',views.Student10GenericAPIView.as_view()),
 ]
 =====
-4.2.7.5 已在一个接口中将子路追加到总路由，无需再追加
-4.2.7.6 对student9发送get和post，对student10发送get、put和delete请求
+2.7.5 已在一个接口中将子路追加到总路由，无需再追加
+2.7.6 对student9发送get和post，对student10发送get、put和delete请求
 
 小结：GenericAPIView+N*XModeMixin=>XAPIView/XYZAPIView
 1 通过多继承GenericAPIView和XModeMixin封装为XAPIView，可以实现直接用XAPIView灵活创建增删改查的1个或者多个接口；
@@ -1934,10 +1934,10 @@ def get(self,request):
 的代码，因为继承XModeMixin就相当于已经有了该方法
 3 封装之后存在的不足是，从请求方法到XModeMixin中X方法的关联在继承时就写死了，没办法自定义请求方法名，也是就说重写请求方法必须是get、post、put和delete这种固定名称的方法。这种限制，在ViewSet中得到了解决。
 
-4.2.8 视图集----示例6
-4.2.8.1 借用已创建的模型对象Student
-4.2.8.2 借用已创建的序列化器类StudentModelSerializer
-4.2.8.3 创建视图类
+2.8 视图集----示例6
+2.8.1 借用已创建的模型对象Student
+2.8.2 借用已创建的序列化器类StudentModelSerializer
+2.8.3 创建视图类
 在...DRF\drfdemo\req应用下的views.py文件中：
 =====
 """
@@ -1970,7 +1970,7 @@ class Student12ModelViewSet(ModelViewSet):
     serializer_class = StudentModelSerializer
 =====
 
-4.2.8.4 更新子路由
+2.8.4 更新子路由
 ...DRF\drfdemo\req下更新urls.py文件，调用视图类的as_view()方法：
 =====
 # 更新子路由，关联路径和视图
@@ -1999,8 +1999,8 @@ urlpatterns = [
     re_path(r'^student12/(?P<pk>\d+)/$',views.Student12ModelViewSet.as_view({"get":"retrieve","put":"update","delete":"destroy"})),
 ]
 =====
-4.2.8.5 已在一个接口中将子路追加到总路由，无需再追加
-4.2.8.6 对student11发送get、post、put和delete请求
+2.8.5 已在一个接口中将子路追加到总路由，无需再追加
+2.8.6 对student11发送get、post、put和delete请求
 
 小结：XAPIView/XYZAPIView=>GenericViewSe+N*XModeMixin=>ModelViewSet
 1 可以根据需要GenericViewSet和N个XModeMixin的方式任意组合，通过映射请求，不在受制于GenericAPIView+Mixins中重写请求方法时必须要采用get、post、put和delete命名请求方式。
@@ -2008,4 +2008,843 @@ urlpatterns = [
 3 ModelViewSet通过多继承一次性封装了GenericViewSet和5个XModeMixin，路由也需要在as_view()方法中定义请求方法和XModeMixin中的X()方法的对应关系
 4 当前的不足是如果多个ModelViewSet生成路由时，除了路径是变量其它均是重复，需要需要进一步封装；注册router组件为采用ModelViewSet后自动注册提供了解决方案
 
+六 Django-DRF(路由与扩展功能)
+----视图集与路由的使用
+　　使用视图集ViewSet，可以将一系列逻辑相关的动作放到一个类中：
+
+list() 提供一组数据
+retrieve() 提供单个数据
+create() 创建数据
+update() 保存数据
+destory() 删除数据
+　　ViewSet视图集类不再实现get()、post()等方法，而是实现动作 action 如 list() 、create() 等。
+
+　　视图集只在使用as_view()方法的时候，才会将action动作与具体请求方式对应上。
+
+----常用的视图集父类
+1.ViewSet
+　　继承自APIView 与 ViewSetMixin，其作用也与APIView基本类似，提供了身份认证、权限校验、流量管理等。
+
+　　ViewSet主要通过继承ViewSetMixin来实现在调用as_view()时传入字典（如{'get':'list'}）的映射处理工作。
+
+　　【在ViewSet中，没有提供任何动作action方法，需要我们自己实现action方法。】
+
+2.GenericViewSet
+　使用ViewSet通常并不方便，因为list、retrieve、create、update、destory等方法都需要自己编写，而这些方法与前面讲过的Mixin扩展类提供的方法同名，所以我们可以通过继承Mixin扩展类来复用这些方法而无需自己编写。但是Mixin扩展类依赖与GenericAPIView，所以还需要继承GenericAPIView。
+
+　　GenericViewSet就帮助我们完成了这样的继承工作，继承自GenericAPIView与ViewSetMixin，在实现了调用as_view()时传入字典（如{'get':'list'}）的映射处理工作的同时，还提供了GenericAPIView提供的基础方法，可以直接搭配Mixin扩展类使用。
+
+3.ModelViewSet
+　继承自GenericViewSet，同时包括了ListModelMixin、RetrieveModelMixin、CreateModelMixin、UpdateModelMixin、DestoryModelMixin。
+
+4.ReadOnlyModelViewSet
+　　继承自GenericViewSet，同时包括了ListModelMixin、RetrieveModelMixin。
+
+　　下面我们还是通过案例，为大家演示吧！
+
+5 ViewSet-----示例1
+5.1 创建一个新的子应用set
+=====
+...DRF\drfdemo>python manage.py startapp set
+=====
+
+5.2 在settings.py的INSTALLED_APPS中添加'set'
+=========
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'students',
+    'ser',
+    'req',
+    'set',
+    ...
+]
+=========
+5.3 模型类
+继续使用students应用中的模型student，暂不新建模型
+5.4 创建序列化器
+在...DRF\drfdemo\set\应用目录中新建serializers.py用于保存该应用的序列化器。
+在serializers.py中创建一个StudentModelSerializer用于序列化与反序列化。
+可以复用ser应用下的serializers.py中的StudentModelSerializer。
+=====
+from rest_framework import serializers
+from students.models import Student
+
+
+def check_user(data):
+    """ 
+    这个验证函数最重要的就是：
+    1 根据传入的数据做判断
+    2 用serializers.ValidationError()给出报错
+    3 返回验证完成的数据
+    """
+    if data == 'badboy':
+        raise serializers.ValidationError('用户名不能为badboy!!')
+    return data
+class StudentModelSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Student
+        # fields = "__all__" # 模型中所有字段均从模型中引用
+        fields = ['id', 'name', 'age', 'sex']
+        # exclude = ['age'] # 不包含某个字段
+        # 传递额外的参数，为ModelSerializer添加或修改原来的选项参数
+        extra_kwargs = {
+            "name": {"max_length": 10, "min_length": 4, "validators": [check_user]},
+            "age": {"max_value": 150, "min_value": 0}
+        }
+
+    def validtate_name(self, data):
+        if data == "root":
+            raise serializers.ValidationError("禁止向root提交数据")
+        return data
+
+    def validate(self, attrs):
+        name = attrs.get('name')
+        sex = attrs.get('sex')
+        age = attrs.get('age')
+
+        if name == "admin" and age >= 99:
+            raise serializers.ValidationError("admin达到可以退休了")
+        return attrs
+=====
+5.5 创建视图类
+在...DRF\drfdemo\set应用下的views.py文件中：
+=====
+""" ViewSet视图集，继承于APIView，所以APIView有的功能，它都有；此外还具有APIView不具备的功能
+例如：ViewSetMixin中调用as_view()方法建立请求方法与自定义方法的映射关系。 
+"""
+from rest_framework.viewsets import ViewSet
+from students.models import Student
+from set.serializers import StudentModelSerializer
+from rest_framework.response import Response
+
+class Student1ViewSet(ViewSet):
+    def get_5(self,request):
+        student_list = Student.objects.all()[0:5]
+        serializer = StudentModelSerializer(instance=student_list,many=True)
+        return Response(serializer.data)
+
+    def get_one(self,request,pk):
+        student_obj = Student.objects.get(pk=pk)
+        serializer = StudentModelSerializer(instance=student_obj)
+        return Response(serializer.data)
+
+    def get_5_boy(self,request):
+        student_list = Student.objects.filter(sex=True)[:5]
+        serializer = StudentModelSerializer(instance=student_list,many = True)
+
+        return Response(serializer.data)
+=====
+5.6 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    #ViewSet
+    path('student1/',views.Student1ViewSet.as_view({'get':'get_5'})),
+    path('student1/get_5_boy/',views.Student1ViewSet.as_view({'get':'get_5_boy'})),
+    re_path(r'^student1/(?P<pk>\d+)/$',views.Student1ViewSet.as_view({'get':'get_one'})),
+]
+
+=====
+5.7 将子路由追加到总路由
+=====
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('drf/', include('students.urls')),
+    path('ser/', include('ser.urls')), #追加ser应用的子路由urls.py到总路由
+    path('req/', include('req.urls')), #追加req应用的子路由urls.py到总路由
+    path('set/', include('set.urls')), #追加set应用的子路由urls.py到总路由
+]
+=====
+5.8 发送get请求
+----ViewSet实现----
+查(postman)：
+get=>http://localhost:8000/set/student1/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+
+6 ViewSet+ GenericAPIView--示例2
+6.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+6.2 沿用之前创建的StudentModelSerializer。
+6.3 创建视图类
+=====
+""" 如果希望在视图集中调用GenericAPIView，则可以采用下面的方式 """
+
+from rest_framework.generics import GenericAPIView
+
+
+class Student2ViewSet(ViewSet, GenericAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializer
+
+    def get_5(self, request):
+        student_list = self.get_queryset()[:5]
+        serializer = StudentModelSerializer(instance=student_list, many=True)
+
+        return Response(serializer.data)
+
+    def get_one(self, request):
+        student_obj = self.get_object()
+        serializer = StudentModelSerializer(instance=student_obj)
+
+        return Response(serializer.data)
+
+    def get_5_boy(self, request):
+        student_list = self.get_queryset().filter(sex=True)[:5]
+        serializer = StudentModelSerializer(instance=student_list, many=True)
+
+        return Response(serializer.data)
+=====
+6.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+    #ViewSet+GenericAPIView
+    path('student2/',views.Student2ViewSet.as_view({'get':'get_5'})),
+    path('student2/get_5_boy/',views.Student2ViewSet.as_view({'get':'get_5_boy'})),
+    re_path(r'^student2/(?P<pk>\d+)/$',views.Student2ViewSet.as_view({'get':'get_one'})),
+]
+
+=====
+6.5 已在一个接口中将子路追加到总路由，无需再追加
+6.6 发送get请求
+----ViewSet+GenericAPIView实现----
+查(postman)：
+get=>http://localhost:8000/set/student2/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+小结：
+示例2和示例1相比，除了都可以自定义请求方法之间的映射关系，示例2具有GenericAPIView对queryset和serializer_class公共属性的封装。
+
+7 GenericViewSet--示例3
+7.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+7.2 沿用之前创建的StudentModelSerializer。
+7.3 创建视图类
+=====
+""" 上面的方式，虽然实现视图集中调用GenericAPIView，其实可以直接继承GenericViewSet """
+from rest_framework.viewsets import GenericViewSet
+
+
+class Student3GenericViewSet(GenericViewSet):
+    serializer_class = StudentModelSerializer
+    queryset = Student.objects.all()
+
+    def get_5(self,request):
+        student_list = self.get_queryset()[:5]
+        serializer = self.get_serializer(instance = student_list, many = True)
+        
+        return Response(serializer.data)
+
+    def get_5_boy(self,request):
+        student_list = self.get_queryset().filter(sex=True)[:5]
+        serializer = self.get_serializer(instance=student_list, many=True)
+
+        return Response(serializer.data)
+=====
+7.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+    #GenericViewSet
+    path('student3/',views.Student3GenericViewSet.as_view({'get':'get_5'})),
+    path('student3/get_5_boy/',views.Student3GenericViewSet.as_view({'get':'get_5_boy'})),
+]
+
+=====
+7.5 已在一个接口中将子路追加到总路由，无需再追加
+7.6 发送get请求
+----GenericViewSet实现----
+查(postman)：
+get=>http://localhost:8000/set/student3/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+小结：
+示例3较示例2，只是用GenericViewSet封装了GenericAPIView和ViewSet
+
+8 GenericViewSet+N*XModelMixin--示例4和ModelViewSet--示例5
+8.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+8.2 沿用之前创建的StudentModelSerializer。
+8.3 创建视图类
+=====
+""" 可以通过同时继承GenericViewSet和XModelMixin，自动调用已封装好的X()方法，根据需要快速生成API的组合"""
+from rest_framework.mixins import ListModelMixin,CreateModelMixin
+
+class Student4GenericViewSet(GenericViewSet,ListModelMixin,CreateModelMixin):
+    serializer_class = StudentModelSerializer
+    queryset = Student.objects.all()
+
+""" 也可以通过直接继承ModelViewSet一次性生成5个API """
+from rest_framework.viewsets import ModelViewSet
+
+class Student5ModelViewSet(ModelViewSet):
+    serializer_class = StudentModelSerializer
+    queryset = Student.objects.all()
+=====
+8.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+    #GenericViewSet+N*XModeMixin,快速生成API组合
+    path('student4/',views.Student4GenericViewSet.as_view({'get':'list','post':'create'})),
+
+    #ModelViewSet,一次性快速生成5个API，也可以根据需要减少不需要的API
+    path('student5/',views.Student5ModelViewSet.as_view({'get':'list','post':'create'})),
+    re_path(r'^student5/(?P<pk>\d+)/$',views.Student5ModelViewSet.as_view({'get':'retrieve','put':'update','delete':'destroy'})),
+
+    # 也可以根据需要去掉不用的API
+    # path('student5/',views.Student5ModelViewSet.as_view({'get':'list'})),
+    # re_path(r'^student5/(?P<pk>\d+)/$',views.Student5ModelViewSet.as_view({'delete':'destroy'})),
+]
+
+=====
+8.5 已在一个接口中将子路追加到总路由，无需再追加
+8.6 发送get请求
+----GenericViewSet+N*XModeMixin实现和ModelViewSet实现----
+查(postman)：
+get=>http://localhost:8000/set/student4/
+get=>http://localhost:8000/set/student5/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+小结：
+示例4为GenericViewSet+N*XModeMixin的组合，较示例3不用在定义前端请求对应的方法了，继承XModeMixin时就内在定义了X()方法。
+示例5为ModelViewSet，较示例4不用在多继承，一次性把5个接口封装到一个ModelViewSet中。
+
+9 ReadOnlyModelViewSet--示例6
+9.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+9.2 沿用之前创建的StudentModelSerializer。
+9.3 创建视图类
+=====
+""" 只读模型视图集 """
+
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
+class Student6ReadOnlyModelViewSet(ReadOnlyModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializer
+
+=====
+9.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+
+    #ReadOnlyModelViewSet,一次性生成2个只读API
+    path('student6/',views.Student6ReadOnlyModelViewSet.as_view({'get':'list'})),
+    re_path(r'^student6/(?P<pk>\d+)/$',views.Student6ReadOnlyModelViewSet.as_view({'get':'retrieve'})),
+]
+
+=====
+9.5 已在一个接口中将子路追加到总路由，无需再追加
+9.6 发送get请求
+----ReadOnlyModelViewSet实现----
+查(postman)：
+get=>http://localhost:8000/set/student6/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+小结：
+1、ReadOnlyModelViewSet只是同时继承了两个只读的get请求，相当于是GenericViewSet+ListModelMixin+RetrieveModelMixin
+
+10 使用action进行路由注册--示例7
+10.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+10.2 沿用之前创建的StudentModelSerializer。
+10.3 创建视图类
+=====
+""" 路由的使用 """
+from rest_framework.decorators import action
+
+
+class Student7ModelViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializer
+
+    #methods 指定哪些http请求可以访问当前视图
+    #detail 指定生成的路由地址中是否要带有pk值，true为需要
+
+    # 重写了url_path原来的get_6就失效了，即当detail=True时优先级url_path覆盖get_6,且url_name不可用
+    # @action(methods=['get'],detail=True,url_name='get_girl',url_path='get_MM')
+    @action(methods=['get'],detail=False)
+    def get_6(self, request):
+        print(self.action)
+        serializer = self.get_serializer(instance = self.get_queryset().get(pk=1))
+
+        return Response(serializer.data)
+
+    # @action(methods=['post'],detail=False,url_path='you')    
+    #.../login/
+    @action(methods=['post'],detail=False)
+    def login(self, request):
+        #如果用户名唯一,课使用username对queryset进行过滤；如果不唯一，则需要使用id字段来过滤；否则会报错
+        username=request.data['name']
+        serializer = self.get_serializer(instance =self.get_queryset().get(name=username))
+        # return Response({"msg":"ok"})
+        # 自定义返回格式
+        res={
+            "msg":"登录成功！",
+            "code":'200',
+            'data':{
+                'flag':True,
+                "data":serializer.data
+            }
+        }
+        return Response(res)
+
+=====
+10.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+]
+""" 
+有了视图集以后，视图文件中多个视图类可以合并成一个，但是路由的代码就变得复杂了；
+需要我们经常在as_view()方法中编写http请求和视图方法的对应关系 
+事实上，在路由中DRF提供了一个路由类给我们对路由代码进行简写。
+当然这个路由类【仅针对视图集可用】
+视图集，包括ViewSet、GenericViewSet、ModelViewSet、ReadOnlyModelViewSet。
+"""
+
+# 路由类默认只会给视图集中的基本5个API生成地址，即增删改查查
+from rest_framework.routers import DefaultRouter
+
+# 实例化路由类
+router = DefaultRouter()
+
+# 注册视图集类到路由，router.register('访问地址前缀','视图集','访问别名')
+router.register('student7',views.Student7ModelViewSet)
+
+# 追加生成的路由到子路由中
+urlpatterns += router.urls
+=====
+10.5 已在一个接口中将子路追加到总路由，无需再追加
+10.6 发送get请求
+----使用action进行路由注册实现----
+查(postman)：
+get=>http://localhost:8000/set/student7/get_4/
+返回(postman)：
+response.body=>
+========
+{
+    "id": 4,
+    "name": "MeiMei",
+    "age": 25,
+    "sex": true
+}
+========
+post=>http://localhost:8000/set/student7/login/
+返回(postman)：
+response.request=>
+========
+{
+    "name": "MeiMei",
+    "age": 25,
+    "sex": true
+}
+========
+response.body=>
+========
+{
+    "msg": "登录成功！",
+    "code": "200",
+    "data": {
+        "flag": true,
+        "data": {
+            "id": 4,
+            "name": "MeiMei",
+            "age": 25,
+            "sex": true
+        }
+    }
+}
+========
+小结：
+1、示例7通过路由组件直接把ViewSet和路径自动关联
+2、同时通过action自定义methods参数和视图方法手动完成关联。
+
+11 在视图类中使用多个序列化器--示例8
+11.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+11.2 沿用之前创建的StudentModelSerializer；并在...drfdemo/set/serializers.py中新建一个序列化器：
+=====
+class StudentInfoModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =Student
+        fields = ['id', 'name']
+=====
+11.3 创建视图类
+=====
+""" 在多个视图类合并成一个视图类以后，有时会出现一个类中需要调用多个序列化器 """
+""" 1 在视图类中重写get_serializer_class方法调用多个序列化器,默认是一个视图类调用一个序列化器 """
+from set.serializers import StudentInfoModelSerializer
+
+class Student8GenericAPIView(GenericAPIView):
+    queryset = Student.objects.all()
+
+    #GenericAPIView内部调用序列化器的方法，重写序列化器类
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return StudentInfoModelSerializer
+        return StudentModelSerializer
+
+    def get(self,request):
+        """ 获取所有数据的id和name """
+        student_list= self.get_queryset()
+        serializer = self.get_serializer(instance = student_list, many = True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        """ 添加1条数据 """
+        serializer = self.get_serializer(data= request.data)
+        serializer.is_valid(raise_exception =True)
+        serializer.save()
+
+        return Response(serializer.data)
+
+=====
+11.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+    # 在视图类中调用多个序列化器
+    path('student8/',views.Student8GenericAPIView.as_view()),
+]
+
+=====
+11.5 已在一个接口中将子路追加到总路由，无需再追加
+11.6 发送get请求和post请求(略)
+----使用action进行路由注册实现----
+查(postman)：
+get=>http://localhost:8000/set/student8/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+小结：
+1、GenericAPIView在抽离出序列化器类时默认是一个视图类一个序列化器类
+2、可以根据需要，重写get_serializer_class()方法，在一个视图中调用多个序列化器类
+
+
+12 在视图集类中使用多个序列化器--示例9
+12.1 模型类
+继续使用students应用中的模型student，暂不新建模型
+12.2 沿用之前创建的StudentModelSerializer；并在...drfdemo/set/serializers.py中新建一个序列化器：
+=====
+class StudentInfoModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =Student
+        fields = ['id', 'name']
+=====
+12.3 创建视图类
+=====
+""" 2 在视图集中调用多个序列化器类 """
+
+class Student9ModelViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+
+    """ 
+    要求：
+    列表数据list，返回2个字段
+    详情数据retrieve，返回所有字段
+    """
+    #重写get_serializer_class方法
+    def get_serializer_class(self):
+        print('当前请求方法=>',self.request.method)
+        if self.action == 'list':
+            return StudentInfoModelSerializer
+        return StudentModelSerializer
+
+=====
+12.4 创建子路由
+...DRF\drfdemo\set下新建urls.py文件，调用视图类的as_view()方法：
+=====
+from django.urls import path, re_path
+from set import views
+
+# 创建子路由，关联路径和视图
+
+urlpatterns =[
+    ...
+    # 在视图集中调用多个序列化器
+    path('student9/',views.Student9ModelViewSet.as_view({'get':'list','post':'create'})),
+    re_path(r'^student9/(?P<pk>\d+)/$',views.Student9ModelViewSet.as_view({'get':'retrieve','put':'update'}))
+]
+
+=====
+12.5 已在一个接口中将子路追加到总路由，无需再追加
+12.6 发送get请求和post请求(略)
+----使用action进行路由注册实现----
+查(postman)：
+get=>http://localhost:8000/set/student9/
+返回(postman)：
+response.body=>
+========
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "age": 26,
+        "sex": true
+    },
+    {
+        "id": 2,
+        "name": "admin",
+        "age": 20,
+        "sex": true
+    },
+    {
+        "id": 3,
+        "name": "MeiGaLI",
+        "age": 55,
+        "sex": true
+    },
+    {
+        "id": 4,
+        "name": "MeiMei",
+        "age": 25,
+        "sex": true
+    },
+   ...
+]
+========
+put=>http://localhost:8000/set/student9/4/
+request.body=>
+=====
+{
+    "name": "MeiMei",
+    "age": 95,
+    "sex": false
+}
+=====
+返回(postman)：
+response.body=>
+========
+{
+    "id": 4,
+    "name": "MeiMei",
+    "age": 95,
+    "sex": false
+}
+========
+小结：
+1、ModelViewSet中默认提供一个序列号器类
+2、可以根据需要，重写get_serializer_class()方法，在一个视图集中调用多个序列化器类
 

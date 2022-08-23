@@ -1,10 +1,3 @@
-# from operator import truediv
-# from typing_extensions import Required
-# from unicodedata import name
-# from unittest.util import _MAX_LENGTH
-# from wsgiref.validate import validator
-from email.policy import default
-from unicodedata import name
 from rest_framework import serializers
 
 from students.models import Student
